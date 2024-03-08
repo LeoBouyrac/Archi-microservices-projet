@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>User Score</title>
+    <link rel="stylesheet" href="common.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Score Details</h1>
+        <p>Score du joueur: <span id="userScore">Erreur lors du chargement du score.</span></p>
+        <p>Nb Word(s) found: <span id="wordsFound">0</span></p>
+        <p>Average try: <span id="averageAttempts">0</span></p>
+        <a href="/">Back to Game</a>
+        <!-- JavaScript -->
+    <script>
+$(document).ready(function() {
+    // Assuming you have a way to retrieve the current username on the client side
+    // This could be from a global JavaScript variable, local storage, etc.
+    // For demonstration purposes, let's assume the username is stored in local storage
+    const username = localStorage.getItem('currentUsername'); // Ensure this key matches how you've set it
+    
+    if (username) {
+        $.get('/getscore?user=' + encodeURIComponent(username), function(scoreData) {
+            $('#userScore').text(scoreData.score); // Update the score display based on the response
+            // Update other elements as necessary
+        }).fail(function() {
+            $('#userScore').text('Erreur lors du chargement du score.');
+        });
+    } else {
+        $('#userScore').text('User not identified.');
+    }
+});
+
+    </script>
+	</div>
+</body>
+</html>
