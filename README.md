@@ -41,6 +41,6 @@ Ci-dessous se trouve un diagramme d'architecture simplifié illustrant les inter
 
 Améliorations Futures :
 
-Mise en place de fonctionnalités de jeu supplémentaires (par exemple, classements, défis quotidiens).
-Amélioration des mesures de sécurité pour l'authentification des utilisateurs.
-Migration du stockage des scores vers une solution de base de données évolutive.
+Le Score qui s'affiche dans la page principale, je n'arrive pas à l'exporter dans la page score, ce serait une première amélioration.
+On pourrait ensuite à partir de cela penser à plusieurs améliorations, comme un classement etc
+Migration du stockage des scores vers une solution de base de données évolutive avec Redis par exemple que je n'ai pas réussi à faire fonctionner
