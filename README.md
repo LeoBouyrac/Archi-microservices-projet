@@ -26,7 +26,7 @@ Ensuite vous pouvez  accédez à la page des scores (score.html) après vous êt
 Pour gérer votre compte, utilisez les pages de connexion (login.html) et d'inscription (register.html).
 
 Diagramme d'architecture
-Ci-dessous se trouve un diagramme d'architecture simplifié illustrant les interactions entre les composants :
+Ci-dessous se trouve un diagramme d'architecture simplifié illustrant les interactions entre les composants, vous pouvez le retrouver sous forme de PNG dans les fichiers du github :
 
     User[Utilisateur] -->|Connexion/Inscription| ServiceJeu[Service de Jeu];
     User -->|Jouer & Soumettre un Mot| ServiceJeu;
