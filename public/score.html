@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Scoreboard - Motus Game</title>
+    <link rel="stylesheet" href="common.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Scoreboard - Motus Game</h1>
+        <table id="scoreboard" border="1">
+            <thead>
+                <tr>
+                    <th>Joueur</th>
+                    <th>Score</th>
+                    <th>Submissions</th>
+                    <th>Average Try</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $.get('/all-scores', function(data) {
+                data.forEach(function(user) {
+                    $('#scoreboard tbody').append(
+                        `<tr>
+                            <td>${user.user}</td>
+                            <td>${user.score}</td>
+                            <td>${user.submissions}</td>
+                            <td>${user.averageTry}</td>
+                        </tr>`
+                    );
+                });
+            });
+        });
+    </script>
+</body>
+</html>
