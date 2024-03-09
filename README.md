@@ -5,10 +5,9 @@ Introduction
 Ce projet est une application web développée en utilisant une architecture de microservices pour mettre en œuvre un jeu Motus. Il comprend un système de score, un système d'authentification, et est conçu pour la collaboration d'équipe. L'objectif est de fournir un exemple complet de microservices en action, mettant en valeur les pratiques de développement et architecturales.
 
 Structure du projet
-L'application est structurée autour de trois composants principaux :
+L'application est structurée autour de deux composants principaux :
 
 Service de jeu (app.js) : Gère la logique du jeu, les sessions utilisateur et l'authentification.
-Service de notation (scoreApp.js) : Gère de manière indépendante les scores des utilisateurs, y compris le stockage et la récupération.
 Interface utilisateur : Composée de pages HTML (index.html, login.html, register.html, score.html) pour interagir avec l'utilisateur.
 
 Configuration et Installation
@@ -22,7 +21,7 @@ Vous pouvez ensuite jouer au jeu.
 Utilisation
 Pour jouer au jeu, visitez la page principale (index.html) et saisissez votre proposition pour le mot du jour.
 Les scores de la session sont directement affichés en dessous du jeu.
-Ensuite vous pouvez  accédez à la page des scores (score.html) après vous être connecté et voir les scores cumulés sur le compte joueur.
+Ensuite vous pouvez  accédez à la page des scores (score.html) après vous être connecté et voir les scores cumulés sur le compte joueur et le classement des joueurs.
 Pour gérer votre compte, utilisez les pages de connexion (login.html) et d'inscription (register.html).
 
 Diagramme d'architecture
@@ -41,6 +40,4 @@ Ci-dessous se trouve un diagramme d'architecture simplifié illustrant les inter
 
 Améliorations Futures :
 
-Le Score qui s'affiche dans la page principale, je n'arrive pas à l'exporter dans la page score, ce serait une première amélioration.
-On pourrait ensuite à partir de cela penser à plusieurs améliorations, comme un classement etc
-Migration du stockage des scores vers une solution de base de données évolutive avec Redis par exemple que je n'ai pas réussi à faire fonctionner
+Je n'ai pas eu le temps de me pencher sur la question de Docker et de Reverse Proxy, ce serait deux améliorations possibles
