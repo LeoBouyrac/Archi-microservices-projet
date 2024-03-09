@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Motus Game</title>
+    <link rel="stylesheet" href="common.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>Bienvenue au jeu Motus</h1>
+    <p>Bienvenue, <span id="username">Chargement...</span></p>
+
+    <form id="motus-form">
+        <input type="text" id="user-guess" placeholder="Entrez votre mot ici" />
+        <button type="submit">Vérifier</button>
+    </form>
+    <div id="result"></div>
+    <p>Score: <span id="score-display">0</span></p>
+    <p>Submissions: <span id="submissions-display">0</span></p>
+
+    <a href="score.html"><button type="button">Score</button></a>
+</div>
+
+    <script>
+        $(document).ready(function() {
+            let score = 0;
+            let submissions = 0;
+
+            $.get('/current-user', function(data) {
+                $('#username').text(data.user);
+                score = data.score;
+                submissions = data.submissions;
+                $('#score-display').text(score);
+                $('#submissions-display').text(submissions);
+            }).fail(function() {
+                window.location.href = '/login.html';
+            });
+
+            $('#motus-form').on('submit', function(e) {
+                e.preventDefault();
+                const userGuess = $('#user-guess').val().toUpperCase();
+                submissions++;
+                $('#submissions-display').text(submissions);
+
+                $.get('/word', function(wordOfDay) {
+                    wordOfDay = wordOfDay.toUpperCase();
+                    let resultHTML = '';
+                    let correctGuesses = 0;
+
+                    for (let i = 0; i < userGuess.length; i++) {
+                        if (userGuess[i] === wordOfDay[i]) {
+                            resultHTML += `<span style="background-color: green;">${userGuess[i]}</span>`;
+                            correctGuesses++;
+                        } else if (wordOfDay.includes(userGuess[i])) {
+                            resultHTML += `<span style="background-color: orange;">${userGuess[i]}</span>`;
+                        } else {
+                            resultHTML += `<span>${userGuess[i]}</span>`;
+                        }
+                    }
+
+                    if (correctGuesses === wordOfDay.length && userGuess.length === wordOfDay.length) {
+                        score++;
+                        $('#score-display').text(score);
+                        $.get('/new-word'); // Fetch a new word for the next round
+                    }
+
+                    $('#result').html(resultHTML);
+                    updateStats(score, submissions); // Update both score and submissions on the backend
+                });
+            });
+
+            function updateStats(score, submissions) {
+                fetch('/api/update-stats', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ score, submissions }),
+                    credentials: 'same-origin'
+                })
+                .then(response => response.json())
+                .then(data => console.log(data.message))
+                .catch((error) => console.error('Error:', error));
+            }
+        });
+    </script>
+</body>
+</html>
